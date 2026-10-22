@@ -1,0 +1,29 @@
+@startuml
+
+entity "usuario" as user {
+    * id: INTENGER <<PK>>
+    --
+    nombre: varchar
+    correor: varchar
+}
+
+entity "producto" as productos {
+    * id: INTENGER <<PK>>
+    --
+    nombre : varchar
+    precio : NUMERIC(9,2)
+}
+
+entity "orden_producto" as ordenes {
+    * id: INTENGER <<PK>>
+    --
+    id_user: INTENGER <<FK>>
+    id_producto: INT <<FK>
+    cantidad: INTENGER
+    fecha_orden: DATETIME
+}
+
+user  ||-- ordenes : "1 a muchos"
+productos ||-- ordenes : "1 a muchos"
+
+@enduml

@@ -1,0 +1,35 @@
+@startuml
+
+class User {
+    - id: Integer
+    - nombre: String
+    - email: String
+    --
+    + registroNuevoUser() : void
+    + getHistorialOrdenes() : List<OrdenProducto>
+    - validacionCredenciales() : boolean
+}
+
+class Producto {
+
+    - id: Integer
+    - name: String
+    - precio: Double
+    --
+    + getProductos(): List<Producto>
+    
+}
+
+class OrdenProducto {
+
+    - id: Integer
+    - cantidad: Integer
+    - fechaOrden: Date
+    + creacionOrden(userId: Integer, idProducto : Integrer,  cantidad : Integer)
+    + obtenerOrdenes()
+}
+
+User "1" -- "0..*" OrdenProducto : "realiza >"
+OrdenProducto "*" -- "1" Producto : "contiene >" 
+
+@enduml

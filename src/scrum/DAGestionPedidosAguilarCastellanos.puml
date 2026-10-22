@@ -1,0 +1,24 @@
+@startuml
+start
+:Usuario consulta catálogo;
+:Usuario selecciona producto;
+:Usuario especifica la cantidad;
+:Sistema valida;
+
+if (user_id y product_id existen) then (Sí)
+  :Sistema asocia user_id, product_id y quantity;
+  :Sistema asigna fecha actual (order_date);
+  
+  :Sistema devuelve ID único de confirmación;
+else (no)
+    :Sistema muestra mensaje de producto no disponible;
+    stop
+endif
+
+if (Sistema retorna ID de confirmacion en orden) then (si)
+    :Sistema guarda el registro en 'orders';
+else (no)
+    :Muestra mensaje error "no es posible realizar la orden";
+endif
+stop
+@enduml
