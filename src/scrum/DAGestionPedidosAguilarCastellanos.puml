@@ -1,24 +1,27 @@
 @startuml
 start
-:Usuario consulta catálogo;
+:Registro de nuevos usuarios;
+:Usuario autenticado consulta catálogo;
+:Usuario visualiza catálogo de productos disponibles;
 :Usuario selecciona producto;
 :Usuario especifica la cantidad;
-:Sistema valida;
+:Sistema verifica datos del cliente como de los productos;
 
-if (user_id y product_id existen) then (Sí)
-  :Sistema asocia user_id, product_id y quantity;
-  :Sistema asigna fecha actual (order_date);
-  
-  :Sistema devuelve ID único de confirmación;
-else (no)
-    :Sistema muestra mensaje de producto no disponible;
-    stop
-endif
-
-if (Sistema retorna ID de confirmacion en orden) then (si)
-    :Sistema guarda el registro en 'orders';
-else (no)
-    :Muestra mensaje error "no es posible realizar la orden";
+if (id_usuario existen en la BD) then (si)
+    
+    if(id_producto existe en la BD) then (si)
+    :Sistema asocia id_user, id_product, cantidad;
+    :Sistema asigna fecha actual fecha_orden;
+    :Sistema guarda el registro en tabla orden;
+    :Sistema devuelve id unico de confirmación;
+    :Usuario recibe confirmación de compra;
+    else (no)
+    :Sistema rechaza la solicitud;
+    :Muestra mensaje de error al Usuario; 
+    endif
+else (No)
+  :Sistema rechaza la solicitud;
+  :Muestra mensaje de error al Usuario;
 endif
 stop
 @enduml
